@@ -58,5 +58,18 @@ contract Hello3Dot0 {
         return string.concat("hello ", name);
     }
 
+    function claimVar() public  pure returns (uint256) {
+        // // 1. Memory 变量，随函数执行完就消失
+        // uint256[] memory memoryArray = new uint256[](3);
+        // string memory str = "Hello";
+        // bytes memory tempBytes = new bytes(10);
 
+        // // 2. Stack 变量 存储在栈上
+        // uint256 stackVar = 123;
+        // bool flag = true;
+        // address sender = msg.sender;
+        // uint8 smallNum = 255;
+
+        // return memoryArray[0];
+    }
 }
