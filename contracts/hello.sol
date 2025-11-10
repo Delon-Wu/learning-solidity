@@ -58,7 +58,26 @@ contract Hello3Dot0 {
         return string.concat("hello ", name);
     }
 
-    function claimVar() public  pure returns (uint256) {
+    // 状态变量默认存储在storageDB
+    uint256 public num = 123;
+    uint256[] someStorageArray;
+    mapping(address => uint256) public myMap;
+    struct TempStruct {
+        uint age;
+        string name;
+    }
+    
+    function memoryTempStruct (string memory name, uint age) public pure returns (TempStruct memory) {
+        TempStruct memory ts = TempStruct({age: age, name: name});
+        return ts;
+    }
+    function calldataTempStruct(TempStruct calldata ts) public pure returns (TempStruct memory) {
+        // ts.name = "fdsaf"; // Wrong
+        TempStruct memory newTs = ts;
+        newTs.name = "new name";
+        return newTs;
+    }
+    function claimVar() public  pure returns (uint8) {
         // // 1. Memory 变量，随函数执行完就消失
         // uint256[] memory memoryArray = new uint256[](3);
         // string memory str = "Hello";
@@ -71,5 +90,18 @@ contract Hello3Dot0 {
         // uint8 smallNum = 255;
 
         // return memoryArray[0];
+
+        // 3. Storage 指针 只向存储区的引用 
+        // uint256[] storage storageArray = someStorageArray;
+        // mapping(address => uint256) storage storageMap = myMap;
+
+        // Calldata 不能在函数内声明
+         
+        unchecked {
+            uint8 a = 255;
+            return a + 7;
+        }
     }
+
+    
 }
